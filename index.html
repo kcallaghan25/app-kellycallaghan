@@ -25,7 +25,7 @@
     const minute = now.getMinutes()
     const second = now.getSeconds()
     const hue = nn.map(second, 0, 59, 0, 360)
-    const brushSize = nn.map(minute, 0, 59, 10, 200)
+    const brushSize = nn.map(second, 0, 59, 10, 200)
 
     const color = `hsl(${hue}, 100%, 50%)`
 
