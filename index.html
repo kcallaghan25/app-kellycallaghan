@@ -1,1 +1,47 @@
-<h1>Hello World Wide Web!</h1>
+<body>
+  <nav></nav>
+  <main></main>
+</body>
+
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+
+
+<script>
+  /* global nn */
+  nn.get('main')
+    .css('width', '100vw')
+    .css('height', '100vh')
+    .css('position', 'relative')
+  let drawing = false
+
+  nn.on('mousedown', () => drawing = true)
+  nn.on('mouseup', () => drawing = false)
+
+  function draw () {
+    if (!drawing) return
+
+
+    const now = new Date()
+    const minute = now.getMinutes()
+    const second = now.getSeconds()
+    const hue = nn.map(second, 0, 59, 0, 360)
+    const brushSize = nn.map(minute, 0, 59, 10, 200)
+
+    const color = `hsl(${hue}, 100%, 50%)`
+
+    const x = nn.mouseX
+    const y = nn.mouseY
+    nn.create('div')
+      .css('width', '12px')
+      .css('height', '12px')
+      .css('background', color)
+      .css('border-radius', '50%')
+      .css('pointer-events', 'none')
+      .position(x, y)
+      .scale(brushSize / 10)
+      .addTo('main')
+  }
+
+
+  nn.on('mousemove', draw)
+</script>
