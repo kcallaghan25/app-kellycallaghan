@@ -18,11 +18,11 @@
   nn.on('mouseup', () => drawing = false)
 
   function draw () {
+    /*changes the size and color of the circle you are drawing with based on the seconds values of the current time of day */
     if (!drawing) return
 
 
     const now = new Date()
-    const minute = now.getMinutes()
     const second = now.getSeconds()
     const hue = nn.map(second, 0, 59, 0, 360)
     const brushSize = nn.map(second, 0, 59, 10, 200)
@@ -44,4 +44,21 @@
 
 
   nn.on('mousemove', draw)
+  
+  nn.create('button')
+  .content('Clear')
+  .css('position', 'fixed')
+  .css('top', '10px')
+  .css('left', '10px')
+  .css('z-index', '1000')
+  .on('click', clearCanvas)
+  .addTo('body')
+  
+  function clearCanvas() {
+    drawing = false
+    document.querySelector('main').innerHTML = ''
+  }
+
+  
+  
 </script>
